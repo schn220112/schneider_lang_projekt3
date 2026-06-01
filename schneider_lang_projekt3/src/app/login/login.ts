@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

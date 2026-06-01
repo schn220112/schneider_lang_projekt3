@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
