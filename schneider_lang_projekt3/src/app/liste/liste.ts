@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-liste',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './liste.html',
-  styleUrl: './liste.css',
 })
-export class Liste {
+export class Liste implements OnInit {
 
+  users: any[] = [];
+  selectedUser: any = null;
+
+  ngOnInit(): void {
+    this.users = JSON.parse(localStorage.getItem('users') || '[]');
+  }
+
+  showUser(user: any): void {
+    this.selectedUser = user;
+  }
 }
