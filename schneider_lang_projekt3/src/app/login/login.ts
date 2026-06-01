@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import {FormsModule} from '@angular/forms';
 
@@ -10,31 +10,18 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login implements OnInit {
+export class Login {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = '/liste';
-      }
-    });
-  }
-
-  async onSubmit(event: Event) {
-    event.preventDefault();
-
-    const email      = (document.getElementById('loginName') as HTMLInputElement).value.trim();
-    const password   = (document.getElementById('loginPassword') as HTMLInputElement).value;
-    const rememberMe = (document.getElementById('rememberMe') as HTMLInputElement).checked;
-    const errorMsg   = document.getElementById('loginError')!;
+  async onSubmit() {
+    const email    = (document.getElementById('loginName') as HTMLInputElement).value.trim();
+    const password = (document.getElementById('loginPassword') as HTMLInputElement).value;
+    const errorMsg = document.getElementById('loginError')!;
 
     try {
-      // Eingeloggt bleiben = Local, sonst nur für diese Session
-      await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = '/liste';
+      this.router.navigate(['/liste']);
     } catch (e) {
       errorMsg.style.display = 'block';
     }
