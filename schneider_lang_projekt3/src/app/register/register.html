@@ -5,22 +5,54 @@
     <form (ngSubmit)="onSubmit()">
 
       <div class="mb-3">
-        <label class="form-label">E-Mail</label>
-        <input type="text" id="registerName" class="form-control" required>
+        <label class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" required>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Passwort</label>
-        <input type="password" id="registerPassword" class="form-control" required>
+        <input type="password" id="password" class="form-control" required>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Rolle</label>
-        <select id="role" class="form-select">
+        <select id="role" class="form-select" (change)="onRoleChange()">
+          <option value="">-- Bitte wählen --</option>
           <option value="Schüler">Schüler</option>
           <option value="Lehrer">Lehrer</option>
-          <option value="Lehrer">Admin</option>
         </select>
+      </div>
+
+      <!-- SCHÜLER FELDER -->
+      <div id="schuelerFelder" style="display:none">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" id="schuelerName" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Klasse</label>
+          <input type="text" id="schuelerKlasse" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Abteilung</label>
+          <input type="text" id="schuelerAbteilung" class="form-control">
+        </div>
+      </div>
+
+      <!-- LEHRER FELDER -->
+      <div id="lehrerFelder" style="display:none">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" id="lehrerName" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Abteilung</label>
+          <input type="text" id="lehrerAbteilung" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Fächer</label>
+          <input type="text" id="lehrerFaecher" class="form-control" placeholder="z.B. Mathematik, Informatik">
+        </div>
       </div>
 
       <div id="registerError" class="alert alert-danger" style="display:none"></div>

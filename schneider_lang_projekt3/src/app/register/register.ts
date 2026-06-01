@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
-import {FormsModule} from '@angular/forms';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -14,14 +14,46 @@ export class Register {
 
   constructor(private router: Router) {}
 
+  onRoleChange() {
+    const role = (document.getElementById('role') as HTMLSelectElement).value;
+    document.getElementById('schuelerFelder')!.style.display = role === 'Schüler' ? 'block' : 'none';
+    document.getElementById('lehrerFelder')!.style.display   = role === 'Lehrer'  ? 'block' : 'none';
+  }
+
   async onSubmit() {
-    const email    = (document.getElementById('registerName') as HTMLInputElement).value.trim();
-    const password = (document.getElementById('registerPassword') as HTMLInputElement).value;
+    const email    = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const role     = (document.getElementById('role') as HTMLSelectElement).value;
     const errorMsg = document.getElementById('registerError')!;
 
+    if (!role) {
+      errorMsg.textContent = 'Bitte eine Rolle auswählen!';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    let profilDaten: any = { role };
+
+    if (role === 'Schüler') {
+      profilDaten.name      = (document.getElementById('schuelerName') as HTMLInputElement).value.trim();
+      profilDaten.klasse    = (document.getElementById('schuelerKlasse') as HTMLInputElement).value.trim();
+      profilDaten.abteilung = (document.getElementById('schuelerAbteilung') as HTMLInputElement).value.trim();
+    } else {
+      profilDaten.name      = (document.getElementById('lehrerName') as HTMLInputElement).value.trim();
+      profilDaten.abteilung = (document.getElementById('lehrerAbteilung') as HTMLInputElement).value.trim();
+      profilDaten.faecher   = (document.getElementById('lehrerFaecher') as HTMLInputElement).value.trim();
+    }
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      this.router.navigate(['/']);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      await setDoc(doc(db, 'users', uid), {
+        email,
+        ...profilDaten
+      });
+
+      window.location.href = '/liste';
     } catch (e) {
       errorMsg.textContent = 'Registrierung fehlgeschlagen!';
       errorMsg.style.display = 'block';
