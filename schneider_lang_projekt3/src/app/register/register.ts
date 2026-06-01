@@ -47,14 +47,17 @@ export class Register {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
+      console.log('Auth erfolgreich, uid:', uid);
 
       await setDoc(doc(db, 'users', uid), {
         email,
         ...profilDaten
       });
+      console.log('Firestore gespeichert!');
 
       window.location.href = '/liste';
     } catch (e) {
+      console.error('Fehler:', e);
       errorMsg.textContent = 'Registrierung fehlgeschlagen!';
       errorMsg.style.display = 'block';
     }
