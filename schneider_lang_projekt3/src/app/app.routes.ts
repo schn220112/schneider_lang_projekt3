@@ -3,6 +3,7 @@ import { Login } from './login/login';
 import { Register } from './register/register';
 import { Liste } from './liste/liste';
 import { auth } from './firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const routes: Routes = [
   { path: '', component: Login },
@@ -10,12 +11,15 @@ export const routes: Routes = [
   { path: 'liste', component: Liste, canActivate: [authGuard] },
 ];
 
-export function authGuard(): boolean {
-  const user = auth.currentUser;
-  if (user) {
-    return true;
-  } else {
-    window.location.href = '/';
-    return false;
-  }
+export function authGuard(): Promise<boolean> {
+  return new Promise((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(true);
+      } else {
+        window.location.href = '/';
+        resolve(false);
+      }
+    });
+  });
 }
