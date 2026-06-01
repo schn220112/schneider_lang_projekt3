@@ -4,11 +4,13 @@ import { Register } from './register/register';
 import { Liste } from './liste/liste';
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { Details } from './details/details';
 
 export const routes: Routes = [
   { path: '', component: Login },
   { path: 'register', component: Register },
   { path: 'liste', component: Liste, canActivate: [authGuard] },
+  { path: 'details', component: Details }
 ];
 
 export function authGuard(): Promise<boolean> {
