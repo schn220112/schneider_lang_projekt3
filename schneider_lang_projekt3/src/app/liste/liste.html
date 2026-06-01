@@ -1,34 +1,38 @@
 <div class="container mt-5">
-
-  <div class="card p-4 shadow">
-    <h2>Benutzerliste</h2>
-
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Rolle</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>
-          <a href="#" (click)="showUser(user)">
-            {{ user.name }}
-          </a>
-        </td>
-        <td>{{ user.role }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Alle Profile</h2>
+    <button class="btn btn-outline-dark btn-sm" (click)="logout()">Logout</button>
   </div>
 
-  <div *ngIf="selectedUser" class="card p-4 shadow mt-4">
-    <h3>Benutzerinformationen</h3>
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Suchen..." (input)="onSearch($event)">
+  </div>
 
-    <p><strong>Name:</strong> {{ selectedUser.name }}</p>
-    <p><strong>Rolle:</strong> {{ selectedUser.role }}</p>
+  <div class="mb-3">
+    <select class="form-select" (change)="onFilter($event)">
+      <option value="">Alle</option>
+      <option value="Schüler">Schüler</option>
+      <option value="Lehrer">Lehrer</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-muted">Laden...</div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6" *ngFor="let user of filteredUsers">
+      <div class="card p-3 d-flex flex-row align-items-center gap-3">
+        <div>
+          <div class="fw-semibold">{{ user.name }}</div>
+          <div class="text-muted small">{{ user.role }}</div>
+          <div class="text-muted small" *ngIf="user.klasse">Klasse: {{ user.klasse }}</div>
+          <div class="text-muted small" *ngIf="user.abteilung">Abteilung: {{ user.abteilung }}</div>
+          <div class="text-muted small" *ngIf="user.faecher">Fächer: {{ user.faecher }}</div>
+        </div>
+        <span class="ms-auto badge" [class.bg-primary]="user.role === 'Schüler'" [class.bg-success]="user.role === 'Lehrer'">
+          {{ user.role }}
+        </span>
+      </div>
+    </div>
   </div>
 
 </div>
