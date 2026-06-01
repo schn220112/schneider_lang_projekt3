@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Liste } from './liste/liste';
+import { auth } from './firebase';
 
 export const routes: Routes = [
   { path: '', component: Login },
@@ -10,7 +11,7 @@ export const routes: Routes = [
 ];
 
 export function authGuard(): boolean {
-  const user = localStorage.getItem('loggedInUser');
+  const user = auth.currentUser;
   if (user) {
     return true;
   } else {
