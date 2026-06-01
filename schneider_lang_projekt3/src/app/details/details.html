@@ -1,1 +1,25 @@
-<p>details works!</p>
+<div class="container mt-5" *ngIf="user">
+
+  <div class="card p-4 shadow">
+
+    <h2>Profil</h2>
+
+    <hr>
+
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Rolle:</strong> {{ user.role }}</p>
+
+    <div *ngIf="user.role === 'Schüler'">
+      <p><strong>Klasse:</strong> {{ user.klasse }}</p>
+      <p><strong>Abteilung:</strong> {{ user.abteilung }}</p>
+    </div>
+
+    <div *ngIf="user.role === 'Lehrer'">
+      <p><strong>Abteilung:</strong> {{ user.abteilung }}</p>
+      <p><strong>Fächer:</strong> {{ user.faecher }}</p>
+    </div>
+
+  </div>
+
+</div>
