@@ -37,7 +37,7 @@
 
       <div class="d-flex gap-2">
         <button type="submit" class="btn btn-success">Registrieren</button>
-        <a href="../index/index.html" class="btn btn-outline-secondary">Zurück zum Login</a>
+        <a href="../login/login.html" class="btn btn-outline-secondary">Zurück zum Login</a>
       </div>
 
     </form>
@@ -66,7 +66,7 @@
     users.push({ name, password, role });
     localStorage.setItem("users", JSON.stringify(users));
 
-    window.location.href = "index.html?registered=true";
+    window.location.href = "login.html?registered=true";
   });
 
 </script>
