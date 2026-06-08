@@ -1,55 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { collection, getDocs } from 'firebase/firestore';
+import { signOut } from 'firebase/auth';
+import { auth, db } from '../firebase';
 
 @Component({
   selector: 'app-liste',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './liste.html',
 })
 export class Liste implements OnInit {
 
   users: any[] = [];
   filteredUsers: any[] = [];
+  loading = true;
+  searchTerm = '';
+  filterRole = '';
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
-
-    this.users = storedUsers;
-    this.filteredUsers = storedUsers;
+  async ngOnInit() {
+    const snapshot = await getDocs(collection(db, 'users'));
+    this.users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    this.filteredUsers = this.users;
+    this.loading = false;
   }
 
-  // 🔥 DAS ist der Klick zur Detailseite
-  goToDetails(user: any) {
-    this.router.navigate(['/details'], {
-      state: { user }   // User wird mitgegeben
+  onSearch(event: any) {
+    this.searchTerm = event.target.value.toLowerCase();
+    this.applyFilter();
+  }
+
+  onFilter(event: any) {
+    this.filterRole = event.target.value;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.filteredUsers = this.users.filter(u => {
+      const matchSearch = !this.searchTerm || u.name?.toLowerCase().includes(this.searchTerm);
+      const matchRole   = !this.filterRole || u.role === this.filterRole;
+      return matchSearch && matchRole;
     });
   }
 
-  // 🔍 Suche
-  onSearch(event: any) {
-    const value = event.target.value.toLowerCase();
-
-    this.filteredUsers = this.users.filter(u =>
-      u.name?.toLowerCase().includes(value)
-    );
-  }
-
-  // 🎯 Filter Lehrer / Schüler
-  onFilter(event: any) {
-    const role = event.target.value;
-
-    if (!role) {
-      this.filteredUsers = this.users;
-      return;
-    }
-
-    this.filteredUsers = this.users.filter(u => u.role === role);
-  }
-
-  // 🚪 Logout (Firebase oder localStorage Session)
-  logout() {
-    localStorage.removeItem('loggedInUser');
-    this.router.navigate(['/']);
+  async logout() {
+    await signOut(auth);
+    window.location.href = '/';
   }
 }
