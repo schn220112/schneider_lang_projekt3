@@ -13,20 +13,21 @@ import {FormsModule} from '@angular/forms';
 })
 export class Register {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   onRoleChange() {
     const role = (document.getElementById('role') as HTMLSelectElement).value;
     document.getElementById('schuelerFelder')!.style.display = role === 'Schüler' ? 'block' : 'none';
-    document.getElementById('lehrerFelder')!.style.display   = role === 'Lehrer'  ? 'block' : 'none';
+    document.getElementById('lehrerFelder')!.style.display = role === 'Lehrer' ? 'block' : 'none';
   }
 
   async onSubmit(event: Event) {
     event.preventDefault();
 
-    const email    = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
     const password = (document.getElementById('password') as HTMLInputElement).value;
-    const role     = (document.getElementById('role') as HTMLSelectElement).value;
+    const role = (document.getElementById('role') as HTMLSelectElement).value;
     const errorMsg = document.getElementById('registerError')!;
 
     if (!role) {
@@ -35,28 +36,34 @@ export class Register {
       return;
     }
 
-    let profilDaten: any = { role };
+    let profilDaten: any = {role};
 
     if (role === 'Schüler') {
-      profilDaten.name      = (document.getElementById('schuelerName') as HTMLInputElement).value.trim();
-      profilDaten.klasse    = (document.getElementById('schuelerKlasse') as HTMLInputElement).value.trim();
+      profilDaten.name = (document.getElementById('schuelerName') as HTMLInputElement).value.trim();
+      profilDaten.klasse = (document.getElementById('schuelerKlasse') as HTMLInputElement).value.trim();
       profilDaten.abteilung = (document.getElementById('schuelerAbteilung') as HTMLInputElement).value.trim();
+      const bildFile = (document.getElementById('schuelerBild') as HTMLInputElement).files?.[0];
+      if (bildFile) {
+        profilDaten.bild = await this.toBase64(bildFile);
+      }
     } else {
-      profilDaten.name      = (document.getElementById('lehrerName') as HTMLInputElement).value.trim();
+      profilDaten.name = (document.getElementById('lehrerName') as HTMLInputElement).value.trim();
       profilDaten.abteilung = (document.getElementById('lehrerAbteilung') as HTMLInputElement).value.trim();
-      profilDaten.faecher   = (document.getElementById('lehrerFaecher') as HTMLInputElement).value.trim();
+      profilDaten.faecher = (document.getElementById('lehrerFaecher') as HTMLInputElement).value.trim();
+      const bildFile = (document.getElementById('lehrerBild') as HTMLInputElement).files?.[0];
+      if (bildFile) {
+        profilDaten.bild = await this.toBase64(bildFile);
+      }
     }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-      console.log('Auth erfolgreich, uid:', uid);
 
       await setDoc(doc(db, 'users', uid), {
         email,
         ...profilDaten
       });
-      console.log('Firestore gespeichert!');
 
       window.location.href = '/liste';
     } catch (e) {
@@ -64,5 +71,14 @@ export class Register {
       errorMsg.textContent = 'Registrierung fehlgeschlagen!';
       errorMsg.style.display = 'block';
     }
+  }
+
+  toBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject('Bild konnte nicht geladen werden');
+    });
   }
 }
