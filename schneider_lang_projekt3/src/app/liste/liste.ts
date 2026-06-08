@@ -19,6 +19,8 @@ export class Liste implements OnInit {
   searchTerm = '';
   filterRole = '';
 
+  constructor(private router: Router) {}
+
   async ngOnInit() {
     const snapshot = await getDocs(collection(db, 'users'));
     this.users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -42,6 +44,10 @@ export class Liste implements OnInit {
       const matchRole   = !this.filterRole || u.role === this.filterRole;
       return matchSearch && matchRole;
     });
+  }
+
+  goToDetail(id: string) {
+    this.router.navigate(['/details', id]);
   }
 
   async logout() {
