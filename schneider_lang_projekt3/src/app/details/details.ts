@@ -45,7 +45,7 @@ export class Details implements OnInit {
       updated.klasse = (document.getElementById('editKlasse') as HTMLInputElement).value.trim();
     }
     if (this.user.abteilung !== undefined) {
-      updated.abteilung = (document.getElementById('editAbteilung') as HTMLInputElement).value.trim();
+      updated.abteilung = (document.getElementById('editAbteilung') as HTMLSelectElement).value;
     }
     if (this.user.faecher !== undefined) {
       updated.faecher = (document.getElementById('editFaecher') as HTMLInputElement).value.trim();

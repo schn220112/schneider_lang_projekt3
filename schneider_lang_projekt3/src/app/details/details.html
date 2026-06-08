@@ -49,7 +49,12 @@
 
       <div class="mb-3" *ngIf="user.abteilung !== undefined">
         <label class="form-label">Abteilung</label>
-        <input type="text" id="editAbteilung" class="form-control" [value]="user.abteilung">
+        <select id="editAbteilung" class="form-select">
+          <option value="Informationstechnologie" [selected]="user.abteilung === 'Informationstechnologie'">Informationstechnologie</option>
+          <option value="Elektronik" [selected]="user.abteilung === 'Elektronik'">Elektronik</option>
+          <option value="Elektrotechnik" [selected]="user.abteilung === 'Elektrotechnik'">Elektrotechnik</option>
+          <option value="Informatik" [selected]="user.abteilung === 'Informatik'">Informatik</option>
+        </select>
       </div>
 
       <div class="mb-3" *ngIf="user.faecher !== undefined">
