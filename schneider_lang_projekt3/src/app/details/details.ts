@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 
 @Component({
   selector: 'app-details',
@@ -15,6 +15,7 @@ export class Details implements OnInit {
   user: any = null;
   editMode = false;
   userId = '';
+  isOwnProfile = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class Details implements OnInit {
     if (snapshot.exists()) {
       this.user = snapshot.data();
     }
+    this.isOwnProfile = auth.currentUser?.uid === this.userId;
   }
 
   startEdit() {
