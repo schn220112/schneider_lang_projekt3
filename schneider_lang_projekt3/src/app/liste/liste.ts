@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { collection, getDocs } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
+import { Router } from '@angular/router';
 import { auth, db } from '../firebase';
 
 @Component({
