@@ -1,5 +1,14 @@
 <nav class="navbar navbar-dark px-4 mb-4" style="background:#1a1a2e;">
-  <span class="navbar-brand fw-bold">📚 HTL Donaustadt</span>
+  <span class="navbar-brand fw-bold d-flex align-items-center">
+    <img
+      src="assets/logo.jpg"
+      alt="HTL Donaustadt Logo"
+      height="40"
+      class="me-2"
+    >
+    HTL Donaustadt
+  </span>
+
   <div class="d-flex align-items-center gap-3">
     <span class="text-white small" *ngIf="username">{{ username }}</span>
     <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
