@@ -50,9 +50,7 @@ export class Details implements OnInit {
     if (this.user.faecher !== undefined) {
       updated.faecher = (document.getElementById('editFaecher') as HTMLInputElement).value.trim();
     }
-    if (this.user.geburtsdatum !== undefined) {
-      updated.geburtsdatum = (document.getElementById('editGeburtsdatum') as HTMLInputElement).value;
-    }
+    updated.geburtsdatum = (document.getElementById('editGeburtsdatum') as HTMLInputElement).value;
 
     const bildFile = (document.getElementById('editBild') as HTMLInputElement).files?.[0];
     if (bildFile) {
