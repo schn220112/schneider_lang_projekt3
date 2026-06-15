@@ -18,7 +18,7 @@
   <div *ngIf="loading" class="text-muted">Laden...</div>
 
   <div class="row g-3">
-    <div class="col-12 col-md-6 col-lg-3" *ngFor="let user of filteredUsers">
+    <div class="col-12 col-md-6" *ngFor="let user of filteredUsers">
       <div class="card clickable p-3 d-flex flex-row align-items-center gap-3" (click)="goToDetail(user.id)">
         <img *ngIf="user.bild" [src]="user.bild" class="avatar-sm">
         <div *ngIf="!user.bild" class="avatar-sm avatar-placeholder">👤</div>
