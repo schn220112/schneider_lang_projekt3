@@ -14,6 +14,9 @@
 
       <hr>
 
+      <div class="mb-2" *ngIf="user.geburtsdatum">
+        <strong>Geburtsdatum:</strong> {{ user.geburtsdatum }}
+      </div>
       <div class="mb-2" *ngIf="user.klasse">
         <strong>Klasse:</strong> {{ user.klasse }}
       </div>
@@ -26,6 +29,7 @@
       <div class="mb-2">
         <strong>Email:</strong> {{ user.email }}
       </div>
+
 
       <div class="d-flex gap-2 mt-3">
         <button class="btn btn-outline-secondary" (click)="goBack()">← Zurück</button>
@@ -41,7 +45,10 @@
         <label class="form-label">Name</label>
         <input type="text" id="editName" class="form-control" [value]="user.name">
       </div>
-
+      <div class="mb-3">
+        <label class="form-label">Geburtsdatum</label>
+        <input type="date" id="editGeburtsdatum" class="form-control" [value]="user.geburtsdatum">
+      </div>
       <div class="mb-3" *ngIf="user.klasse !== undefined">
         <label class="form-label">Klasse</label>
         <input type="text" id="editKlasse" class="form-control" [value]="user.klasse">
