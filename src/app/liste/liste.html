@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Alle Profile</h2>
+    <button class="btn btn-outline-dark btn-sm" (click)="logout()">Logout</button>
+  </div>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Suchen..." (input)="onSearch($event)">
+  </div>
+
+  <div class="mb-3">
+    <select class="form-select" (change)="onFilter($event)">
+      <option value="">Alle</option>
+      <option value="Schüler">Schüler</option>
+      <option value="Lehrer">Lehrer</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-muted">Laden...</div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6" *ngFor="let user of filteredUsers">
+      <div class="card p-3 d-flex flex-row align-items-center gap-3"
+           style="cursor:pointer"
+           (click)="goToDetail(user.id)">
+        <img *ngIf="user.bild" [src]="user.bild" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
+        <div *ngIf="!user.bild" style="width:48px; height:48px; border-radius:50%; background:#e0e0e0; display:flex; align-items:center; justify-content:center;">👤</div>
+        <div class="fw-semibold">{{ user.name }}</div>
+        <span class="ms-auto badge" [class.bg-primary]="user.role === 'Schüler'" [class.bg-success]="user.role === 'Lehrer'">
+          {{ user.role }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

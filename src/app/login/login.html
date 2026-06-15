@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="card p-4 shadow">
+    <h2 class="mb-4">Anmeldung</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">E-Mail</label>
+        <input type="text" id="loginName" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Passwort</label>
+        <input type="password" id="loginPassword" class="form-control" required>
+      </div>
+
+      <div id="loginError" class="alert alert-danger" style="display:none">
+        Falscher Benutzername oder Passwort!
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a routerLink="/register" class="btn btn-outline-success">Registrieren</a>
+      </div>
+    </form>
+  </div>
+</div>
