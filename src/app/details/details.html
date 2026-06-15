@@ -14,8 +14,8 @@
 
       <hr>
 
-      <div class="mb-2" *ngIf="user.geburtsdatum">
-        <strong>Geburtsdatum:</strong> {{ user.geburtsdatum }}
+      <div class="mb-2">
+        <strong>Geburtsdatum:</strong> {{ user.geburtsdatum || 'nicht angegeben' }}
       </div>
       <div class="mb-2" *ngIf="user.klasse">
         <strong>Klasse:</strong> {{ user.klasse }}
@@ -51,7 +51,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Geburtsdatum</label>
-        <input type="date" id="editGeburtsdatum" class="form-control" [value]="user.geburtsdatum">
+        <input type="date" id="editGeburtsdatum" class="form-control" [value]="user.geburtsdatum || ''">
       </div>
       <div class="mb-3" *ngIf="user.klasse !== undefined">
         <label class="form-label">Klasse</label>
