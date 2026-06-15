@@ -73,6 +73,14 @@ export class Details implements OnInit {
     });
   }
 
+  emailCopied = false;
+
+  copyEmail() {
+    navigator.clipboard.writeText(this.user.email);
+    this.emailCopied = true;
+    setTimeout(() => this.emailCopied = false, 1500);
+  }
+
   goBack() {
     this.router.navigate(['/liste']);
   }

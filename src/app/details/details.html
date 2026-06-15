@@ -27,8 +27,12 @@
         <strong>Fächer:</strong> {{ user.faecher }}
       </div>
       <div class="mb-2">
-        <strong>Email:</strong> {{ user.email }}
-      </div>
+        <strong>Email:</strong>
+        <span style="cursor:pointer; text-decoration:underline;" (click)="copyEmail()" title="Klicken um zu kopieren">
+          {{ user.email }}
+        </span>
+        <span *ngIf="emailCopied" class="text-success small ms-2">Kopiert!</span>
+        </div>
 
 
       <div class="d-flex gap-2 mt-3">
