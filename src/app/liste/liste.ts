@@ -4,11 +4,12 @@ import { collection, getDocs } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { auth, db } from '../firebase';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-liste',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Header],
   templateUrl: './liste.html',
 })
 export class Liste implements OnInit {

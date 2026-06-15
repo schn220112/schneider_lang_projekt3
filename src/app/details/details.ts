@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Header],
   templateUrl: './details.html',
+
 })
 export class Details implements OnInit {
 
