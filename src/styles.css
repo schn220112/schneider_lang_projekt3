@@ -1,71 +1,150 @@
-/* ===== CSS VARIABLEN (Farben kommen später) ===== */
-:root {
-  --color-bg: #ffffff;
-  --color-surface: #f8f9fa;
-  --color-text: #212529;
-  --color-text-muted: #6c757d;
-  --color-border: #dee2e6;
-  --color-accent: #0d6efd;
-  --radius: 10px;
-  --shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
-
+/* ===== GLOBAL ===== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background: #0f1117;
+  color: #e4e6eb;
   font-family: 'Segoe UI', system-ui, sans-serif;
   line-height: 1.5;
+  min-height: 100vh;
 }
 
-/* ===== LAYOUT ===== */
+/* ===== CONTAINER ===== */
 .container {
   max-width: 900px;
 }
 
 /* ===== CARDS ===== */
 .card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: #1a1d29 !important;
+  border: 1px solid #2a2e3d !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+  color: #e4e6eb !important;
+}
+
+.card.clickable {
+  cursor: pointer;
   transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .card.clickable:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4) !important;
   transform: translateY(-2px);
-}
-
-/* ===== TYPOGRAFIE ===== */
-h1, h2, h3, h4 {
-  font-weight: 600;
-}
-
-.text-muted {
-  color: var(--color-text-muted) !important;
 }
 
 /* ===== INPUTS ===== */
 .form-control, .form-select {
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  padding: 10px 14px;
+  background: #0f1117 !important;
+  border: 1px solid #2a2e3d !important;
+  color: #e4e6eb !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
 }
 
 .form-control:focus, .form-select:focus {
-  box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
-  border-color: var(--color-accent);
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 0 3px rgba(255,107,107,0.15) !important;
+  color: #e4e6eb !important;
+}
+
+.form-control::placeholder {
+  color: #9399a6 !important;
+}
+
+.form-select option {
+  background: #1a1d29;
+  color: #e4e6eb;
+}
+
+/* ===== LABELS ===== */
+.form-label {
+  color: #9399a6;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
 }
 
 /* ===== BUTTONS ===== */
 .btn {
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-weight: 500;
+  border-radius: 8px !important;
+  padding: 8px 18px !important;
+  font-weight: 600 !important;
+  transition: opacity 0.2s !important;
+}
+
+.btn-primary {
+  background: #ff6b6b !important;
+  border-color: #ff6b6b !important;
+  color: #1a1d29 !important;
+}
+
+.btn-primary:hover {
+  opacity: 0.85 !important;
+}
+
+.btn-success {
+  background: #e4e6eb !important;
+  border-color: #e4e6eb !important;
+  color: #1a1d29 !important;
+}
+
+.btn-success:hover {
+  opacity: 0.85 !important;
+}
+
+.btn-outline-secondary {
+  border-color: #2a2e3d !important;
+  color: #9399a6 !important;
+}
+
+.btn-outline-secondary:hover {
+  background: #2a2e3d !important;
+  color: #e4e6eb !important;
+}
+
+.btn-outline-dark {
+  border-color: #e4e6eb !important;
+  color: #e4e6eb !important;
+}
+
+.btn-outline-dark:hover {
+  background: #e4e6eb !important;
+  color: #1a1d29 !important;
+}
+
+/* ===== BADGES ===== */
+.badge.bg-primary {
+  background: #3a3d4d !important;
+  color: #e4e6eb !important;
+}
+
+.badge.bg-success {
+  background: #ff6b6b !important;
+  color: #1a1d29 !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: #1a1d29 !important;
+  border-bottom: 1px solid #2a2e3d !important;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  color: #e4e6eb;
+}
+
+.text-muted {
+  color: #9399a6 !important;
+}
+
+hr {
+  border-color: #2a2e3d !important;
 }
 
 /* ===== AVATAR ===== */
@@ -84,9 +163,22 @@ h1, h2, h3, h4 {
 }
 
 .avatar-placeholder {
-  background: var(--color-border);
+  background: #2a2e3d;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+}
+
+/* ===== ALERTS ===== */
+.alert-danger {
+  background: rgba(255,107,107,0.15) !important;
+  border-color: #ff6b6b !important;
+  color: #ff6b6b !important;
+}
+
+.alert-success {
+  background: rgba(228,230,235,0.1) !important;
+  border-color: #e4e6eb !important;
+  color: #e4e6eb !important;
 }
