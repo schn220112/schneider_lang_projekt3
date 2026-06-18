@@ -182,3 +182,14 @@ hr {
   border-color: #e4e6eb !important;
   color: #e4e6eb !important;
 }
+
+.btn-outline-primary {
+  border-color: #ff6b6b !important;
+  color: #ff6b6b !important;
+  background: transparent !important;
+}
+
+.btn-outline-primary:hover {
+  background: #ff6b6b !important;
+  color: #1a1d29 !important;
+}
